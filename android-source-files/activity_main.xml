@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="ECE420 Auto DJ Spectrogram Analyzer"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Track A row: label, filename, Load button -->
+    <LinearLayout
+        android:id="@+id/rowTrackA"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintTop_toBottomOf="@id/txtTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/labelTrackA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Track A:"
+            android:textStyle="bold"
+            android:layout_marginEnd="8dp"/>
+
+        <TextView
+            android:id="@+id/txtTrackAName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="No file selected"
+            android:ellipsize="end"
+            android:singleLine="true"/>
+
+        <Button
+            android:id="@+id/btnLoadTrackA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Load A"/>
+    </LinearLayout>
+
+    <!-- Track B row: label, filename, Load button -->
+    <LinearLayout
+        android:id="@+id/rowTrackB"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/rowTrackA"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/labelTrackB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Track B:"
+            android:textStyle="bold"
+            android:layout_marginEnd="8dp"/>
+
+        <TextView
+            android:id="@+id/txtTrackBName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="No file selected"
+            android:ellipsize="end"
+            android:singleLine="true"/>
+
+        <Button
+            android:id="@+id/btnLoadTrackB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Load B"/>
+    </LinearLayout>
+
+    <!-- Controls row: Show BPM, BPM value, Show Spectrogram -->
+    <LinearLayout
+        android:id="@+id/rowControls"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_margin="16dp"
+        app:layout_constraintTop_toBottomOf="@id/rowTrackB"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/btnShowBpm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show BPM"/>
+
+        <TextView
+            android:id="@+id/txtBpmValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BPM: --"
+            android:textStyle="bold"
+            android:layout_marginHorizontal="12dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerTransition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/transition_modes"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnStartMixing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="START MIXING"
+        android:textStyle="bold"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/rowControls"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/mixOutputContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="16dp"
+        app:layout_constraintTop_toBottomOf="@id/btnStartMixing"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/btnAnalysis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ANALYSIS"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Final Mix"
+            android:textStyle="bold"/>
+
+        <ImageView
+            android:id="@+id/waveformMixView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="fitXY"/>
+
+        <ImageView
+            android:id="@+id/bpmTimelineView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="8dp"/>
+
+    </LinearLayout>
+
+
+
+    <!-- Spectrogram ImageView -->
+    <LinearLayout
+        android:id="@+id/analysisContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_margin="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"/>
+
+        <!-- Analysis Controls -->
+        <LinearLayout
+            android:id="@+id/analysisControls"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="12dp">
+
+            <Button
+                android:id="@+id/btnShowSpectrogram"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Show Spectrogram"
+                android:layout_marginEnd="12dp"/>
+
+            <Button
+                android:id="@+id/btnShowWaveforms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Show Waveforms"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/labelSpectroA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Track A Spectrogram"
+            android:textStyle="bold"
+            android:paddingBottom="4dp" />
+
+        <ImageView
+            android:id="@+id/spectrogramViewA"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:contentDescription="Spectrogram Track A" />
+
+        <TextView
+            android:id="@+id/labelSpectroB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Track B Spectrogram"
+            android:textStyle="bold"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp" />
+
+        <ImageView
+            android:id="@+id/spectrogramViewB"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:contentDescription="Spectrogram Track B" />
+
+        <!-- Can be removed -->
+
+        <TextView
+            android:id="@+id/labelWaveA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Track A Waveform"
+            android:textStyle="bold"
+            android:paddingTop="12dp"
+            android:paddingBottom="4dp" />
+
+        <ImageView
+            android:id="@+id/waveformViewA"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:scaleType="fitXY"
+            android:contentDescription="Waveform Track A" />
+
+        <TextView
+            android:id="@+id/labelWaveB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Track B Waveform"
+            android:textStyle="bold"
+            android:paddingTop="12dp"
+            android:paddingBottom="4dp" />
+
+        <ImageView
+            android:id="@+id/waveformViewB"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:scaleType="fitXY"
+            android:contentDescription="Waveform Track B" />
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
